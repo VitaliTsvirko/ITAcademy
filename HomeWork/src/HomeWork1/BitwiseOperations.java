@@ -8,8 +8,9 @@
  *	1.4 В комментариях к каждой операции написать двоичный код каждого числа и результата операции.
  *	1.5 Попробуйте сделать побитовую операцию с числова 42.5
  *
+ *  NOTES:
  *	Т.к. тип данных явно не указан считаем что приведенные в задании значения это литералы, т.е. иеем тип int.
- *
+ *  После вызова метода printAllBitwiseOperations приведен результат работы.
  */
 
 package HomeWork1;
@@ -160,14 +161,16 @@ public class BitwiseOperations {
     }
 
     private static String covertExpressionToString(int a, int b, String operand1, String operand2, String operand3, int result){
-        return String.format("%s%s %s %s%s = %s (Binary View: %s%s %s %s%s = %s)", operand1, a, operand2, operand3, b, result, operand1, convertValueToStringBinaryView(a), operand2, operand3, convertValueToStringBinaryView(b), convertValueToStringBinaryView(result));
+        return String.format("%s%s %s %s%s = %s (Binary View: %s%s %s %s%s = %s)", operand1, a, operand2, operand3, b,
+                result, operand1, convertValueToStringBinaryView(a), operand2, operand3,
+                convertValueToStringBinaryView(b), convertValueToStringBinaryView(result));
     }
 
     private static String convertVariableOperationToString (int a, String operand, int result){
-        return String.format("%s%s = %s (Binary View: %s%s = %s)", operand, a, result, operand, convertValueToStringBinaryView(a), convertValueToStringBinaryView(result));
+        return String.format("%s%s = %s (Binary View: %s%s = %s)", operand, a, result, operand,
+                convertValueToStringBinaryView(a), convertValueToStringBinaryView(result));
     }
 
     private static String convertValueToStringBinaryView (int a){
         return String.format("%s",Integer.toBinaryString(a)).replace(' ', '0');
-    }
-}
+    }}

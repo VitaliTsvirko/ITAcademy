@@ -3,6 +3,16 @@
  * Date: 2020.12.5
  */
 
+/*
+ * Author: Vitali Tsvirko
+ * Date: 2020.12.5
+ */
+
+/*
+ * Author: Vitali Tsvirko
+ * Date: 2020.12.5
+ */
+
 package HomeWork2.arrays;
 
 import java.util.Arrays;

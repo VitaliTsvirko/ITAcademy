@@ -13,11 +13,11 @@ public class Task1Subtask4 {
         long result = a;
         long nextVal = a;
         long b;
-        long counter = 1;
+        long counter = 0;
         boolean overflow = false;
 
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите число:");
+        System.out.print("Введите число на которое будем умножать:");
         b = in.nextLong();
 
         do {

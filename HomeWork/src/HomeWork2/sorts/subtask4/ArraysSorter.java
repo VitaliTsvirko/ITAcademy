@@ -23,7 +23,7 @@ public class ArraysSorter {
             isSort = true;
             for (int i = 0; i < res.length - 1; i++) {
                 if (res[i] > res[i + 1]) {
-                    swapArrayElemet(i, (i + 1), res);
+                    swapArrayElement(i, (i + 1), res);
 
                     isSort = false;
                 }
@@ -47,7 +47,7 @@ public class ArraysSorter {
             isSort = true;
             for (int i = left; i < right; i++) {
                 if (res[i] > res[i + 1]) {
-                    swapArrayElemet(i, (i + 1), res);
+                    swapArrayElement(i, (i + 1), res);
                     isSort = false;
                 }
             }
@@ -55,7 +55,7 @@ public class ArraysSorter {
 
             for (int i = right; i > left; i--) {
                 if (res[i] < res[i - 1]) {
-                    swapArrayElemet(i, (i - 1), res);
+                    swapArrayElement(i, (i - 1), res);
                     isSort = false;
                 }
             }
@@ -68,7 +68,7 @@ public class ArraysSorter {
         return res;
     }
 
-    private static void swapArrayElemet (int index1, int index2, int[] arr){
+    private static void swapArrayElement (int index1, int index2, int[] arr){
         int tmp = arr[index1];
         arr[index1] = arr[index2];
         arr[index2] = tmp;

@@ -12,7 +12,7 @@ public class Task2Subtask12 {
         int[] arr  = arrayFromConsole();
 
         printArrayToConsole(arr);
-        printEverySecondElemetToConsole(arr);
+        printEverySecondElementToConsole(arr);
         printReverseArrayToConsole(arr);
     }
 
@@ -42,7 +42,7 @@ public class Task2Subtask12 {
         System.out.print(arr[arr.length -1] + "]\n");
     }
 
-    public static void printEverySecondElemetToConsole(int[] arr){
+    public static void printEverySecondElementToConsole(int[] arr){
         int i = 1;
 
         if (arr.length == 1) {

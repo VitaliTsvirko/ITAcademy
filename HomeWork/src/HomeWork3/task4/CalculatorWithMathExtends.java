@@ -1,11 +1,12 @@
 package HomeWork3.task4;
 
 import HomeWork3.task2.CalculatorWithOperator;
+import HomeWork3.task6.ICalculator;
 
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithMathExtends extends CalculatorWithOperator {
+public class CalculatorWithMathExtends extends CalculatorWithOperator implements ICalculator {
     /**
      * Данный метод выполняет возведение в степень
      * @param number число которое необходимо возвести в степень

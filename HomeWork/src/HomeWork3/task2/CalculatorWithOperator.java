@@ -1,9 +1,11 @@
 package HomeWork3.task2;
 
+import HomeWork3.task6.ICalculator;
+
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithOperator {
+public class CalculatorWithOperator implements ICalculator {
 
     /**
      * Данный метод выполняет деление числа a на b

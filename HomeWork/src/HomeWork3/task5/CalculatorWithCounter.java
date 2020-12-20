@@ -1,11 +1,35 @@
-package HomeWork3.task3;
+package HomeWork3.task5;
 
 import HomeWork3.task2.CalculatorWithOperator;
+import HomeWork3.task3.CalculatorWithMathCopy;
+import HomeWork3.task4.CalculatorWithMathExtends;
 
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithMathCopy extends CalculatorWithOperator{
+public class CalculatorWithCounter {
+    private long countOperation;
+    private CalculatorWithOperator calc;
+    
+    public CalculatorWithCounter(CalculatorWithOperator calc){
+        this.calc = calc;
+    }
+
+    public CalculatorWithCounter(CalculatorWithMathCopy calc){
+        this.calc = calc;
+    }
+
+    public CalculatorWithCounter(CalculatorWithMathExtends calc){
+        this.calc = calc;
+    }
+
+    /**
+     * Данный метод возвращает количество использований калькулятора
+     * @return возвращает количество использований калькулятора
+     */
+    public long getCountOperation(){
+        return this.countOperation;
+    }
 
     /**
      * Данный метод выполняет деление числа a на b
@@ -14,7 +38,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
     public float div(float a, float b){
-        return (b != 0) ? a / b : 0;
+        counting();
+        return calc.div(a,b);
     }
 
     /**
@@ -24,7 +49,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return результат умножения числа a на b.
      */
     public float mult (float a, float b){
-        return a * b;
+        counting();
+        return calc.mult(a,b);
     }
 
     /**
@@ -33,8 +59,9 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @param b число на которое нужно вычесть
      * @return результат вычитания числа a из числа b.
      */
-    public float subt(float a, float b){
-        return a - b;
+    public float sub(float a, float b){
+        counting();
+        return calc.sub(a,b);
     }
 
     /**
@@ -44,7 +71,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return результат сложения числа a и b.
      */
     public float add (float a, float b){
-        return a + b;
+        counting();
+        return calc.add(a,b);
     }
 
     /**
@@ -54,7 +82,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return результат возведения числа number d степень power.
      */
     public float pow (float number, int power){
-        return (float) Math.pow(number, power);
+        counting();
+        return calc.pow(number, power);
     }
 
     /**
@@ -63,7 +92,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return модуль числа
      */
     public float abs (float a){
-        return Math.abs(a);
+        counting();
+        return calc.abs(a);
     }
 
     /**
@@ -72,6 +102,15 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator{
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
     public float sqrt (float a){
-        return (float) Math.sqrt(a);
+        counting();
+        return calc.sqrt(a);
     }
+
+    /**
+     * Данный метод считает количество использований калькулятора
+     */
+    private void counting(){
+        ++countOperation;
+    }
+
 }

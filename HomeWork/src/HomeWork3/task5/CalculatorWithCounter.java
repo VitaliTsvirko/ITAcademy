@@ -9,18 +9,23 @@ import HomeWork3.task4.CalculatorWithMathExtends;
  */
 public class CalculatorWithCounter {
     private long countOperation;
-    private CalculatorWithOperator calc;
+    private CalculatorWithOperator calc1;
+    private CalculatorWithMathCopy calc2;
+
     
     public CalculatorWithCounter(CalculatorWithOperator calc){
-        this.calc = calc;
+        this.calc1 = calc;
+        this.calc2 = null;
     }
 
     public CalculatorWithCounter(CalculatorWithMathCopy calc){
-        this.calc = calc;
+        this.calc1 = null;
+        this.calc2 = calc;
     }
 
     public CalculatorWithCounter(CalculatorWithMathExtends calc){
-        this.calc = calc;
+        this.calc1 = calc;
+        this.calc2 = null;
     }
 
     /**
@@ -37,9 +42,12 @@ public class CalculatorWithCounter {
      * @param b число на которое нужно разделить
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
-    public float div(float a, float b){
+    public double div(double a, double b){
         counting();
-        return calc.div(a,b);
+        if (calc1 != null) {
+            return calc1.div(a,b);
+        }
+        return calc2.div(a,b);
     }
 
     /**
@@ -48,9 +56,12 @@ public class CalculatorWithCounter {
      * @param b число на которое нужно умножить
      * @return результат умножения числа a на b.
      */
-    public float mult (float a, float b){
+    public double mult (double a, double b){
         counting();
-        return calc.mult(a,b);
+        if (calc1 != null) {
+            return calc1.mult(a,b);
+        }
+        return calc2.mult(a,b);
     }
 
     /**
@@ -59,9 +70,12 @@ public class CalculatorWithCounter {
      * @param b число на которое нужно вычесть
      * @return результат вычитания числа a из числа b.
      */
-    public float sub(float a, float b){
+    public double sub(double a, double b){
         counting();
-        return calc.sub(a,b);
+        if (calc1 != null) {
+            return calc1.sub(a,b);
+        }
+        return calc2.sub(a,b);
     }
 
     /**
@@ -70,9 +84,12 @@ public class CalculatorWithCounter {
      * @param b число которое нужно прибавить
      * @return результат сложения числа a и b.
      */
-    public float add (float a, float b){
+    public double add (double a, double b){
         counting();
-        return calc.add(a,b);
+        if (calc1 != null) {
+            return calc1.add(a,b);
+        }
+        return calc2.add(a,b);
     }
 
     /**
@@ -81,9 +98,12 @@ public class CalculatorWithCounter {
      * @param power степень
      * @return результат возведения числа number d степень power.
      */
-    public float pow (float number, int power){
+    public double pow (double number, int power){
         counting();
-        return calc.pow(number, power);
+        if (calc1 != null) {
+            return calc1.pow(number, power);
+        }
+        return calc2.pow(number, power);
     }
 
     /**
@@ -91,9 +111,12 @@ public class CalculatorWithCounter {
      * @param a число
      * @return модуль числа
      */
-    public float abs (float a){
+    public double abs (double a){
         counting();
-        return calc.abs(a);
+        if (calc1 != null) {
+            return calc1.abs(a);
+        }
+        return calc2.abs(a);
     }
 
     /**
@@ -101,9 +124,12 @@ public class CalculatorWithCounter {
      * @param a число
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
-    public float sqrt (float a){
+    public double sqrt (double a){
         counting();
-        return calc.sqrt(a);
+        if (calc1 != null) {
+            return calc1.sqrt(a);
+        }
+        return calc2.sqrt(a);
     }
 
     /**

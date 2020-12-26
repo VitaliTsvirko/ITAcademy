@@ -6,8 +6,8 @@ import HomeWork3.task6.ICalculator;
  * Created by Vitali Tsvirko
  */
 public class CalculatorWithMemoryDecorator implements ICalculator {
-    private float memory;
-    private float lastSaveValue;
+    private double memory;
+    private double lastSaveValue;
     ICalculator calc;
 
     public CalculatorWithMemoryDecorator(ICalculator calculator){
@@ -27,7 +27,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * Данный метод записывает число в память калькулятора
      * @param number число которое необходимо записать в память
      */
-    public void addToMemory(float number){
+    public void addToMemory(double number){
         this.memory = number;
     }
 
@@ -35,13 +35,13 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * Данный метод возвращает число из памяти калькулятора
      * @return возвращает число из памяти калькулятора, после чего очищает память
      */
-    public float getFromMemory(){
+    public double getFromMemory(){
         this.lastSaveValue = this.memory;
         this.memory = 0;
         return lastSaveValue ;
     }
 
-    public float getLastSaveValue(){
+    public double getLastSaveValue(){
         return this.lastSaveValue;
     }
 
@@ -52,7 +52,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param b число на которое нужно разделить
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
-    public float div(float a, float b){
+    public double div(double a, double b){
         return this.calc.div(a,b);
     }
 
@@ -62,7 +62,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param b число на которое нужно умножить
      * @return результат умножения числа a на b.
      */
-    public float mult (float a, float b){
+    public double mult (double a, double b){
         return this.calc.mult(a,b);
     }
 
@@ -72,7 +72,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param b число на которое нужно вычесть
      * @return результат вычитания числа a из числа b.
      */
-    public float sub(float a, float b){
+    public double sub(double a, double b){
         return this.calc.sub(a,b);
     }
 
@@ -82,7 +82,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param b число которое нужно прибавить
      * @return результат сложения числа a и b.
      */
-    public float add (float a, float b){
+    public double add (double a, double b){
         return this.calc.add(a,b);
     }
 
@@ -92,7 +92,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param power степень
      * @return результат возведения числа number d степень power.
      */
-    public float pow (float number, int power){
+    public double pow (double number, int power){
         return this.calc.pow(number, power);
     }
 
@@ -101,7 +101,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param a число
      * @return модуль числа
      */
-    public float abs (float a){
+    public double abs (double a){
         return this.calc.abs(a);
     }
 
@@ -110,7 +110,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @param a число
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
-    public float sqrt (float a){
+    public double sqrt (double a){
         return this.calc.sqrt(a);
     }
 

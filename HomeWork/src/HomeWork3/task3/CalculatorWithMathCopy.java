@@ -6,7 +6,7 @@ import HomeWork3.task6.ICalculator;
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithMathCopy extends CalculatorWithOperator implements ICalculator {
+public class CalculatorWithMathCopy implements ICalculator {
 
     /**
      * Данный метод выполняет деление числа a на b
@@ -14,7 +14,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param b число на которое нужно разделить
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
-    public float div(float a, float b){
+    public double div(double a, double b){
         return (b != 0) ? a / b : 0;
     }
 
@@ -24,7 +24,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param b число на которое нужно умножить
      * @return результат умножения числа a на b.
      */
-    public float mult (float a, float b){
+    public double mult (double a, double b){
         return a * b;
     }
 
@@ -34,7 +34,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param b число на которое нужно вычесть
      * @return результат вычитания числа a из числа b.
      */
-    public float subt(float a, float b){
+    public double sub (double a, double b){
         return a - b;
     }
 
@@ -44,7 +44,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param b число которое нужно прибавить
      * @return результат сложения числа a и b.
      */
-    public float add (float a, float b){
+    public double add (double a, double b){
         return a + b;
     }
 
@@ -54,8 +54,8 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param power степень
      * @return результат возведения числа number d степень power.
      */
-    public float pow (float number, int power){
-        return (float) Math.pow(number, power);
+    public double pow (double number, int power){
+        return Math.pow(number, power);
     }
 
     /**
@@ -63,7 +63,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param a число
      * @return модуль числа
      */
-    public float abs (float a){
+    public double abs (double a){
         return Math.abs(a);
     }
 
@@ -72,7 +72,7 @@ public class CalculatorWithMathCopy extends CalculatorWithOperator implements IC
      * @param a число
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
-    public float sqrt (float a){
-        return (float) Math.sqrt(a);
+    public double sqrt (double a){
+        return Math.sqrt(a);
     }
 }

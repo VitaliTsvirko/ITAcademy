@@ -13,8 +13,8 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
      * @param power степень
      * @return результат возведения числа number d степень power.
      */
-    public float pow (float number, int power){
-        return (float) Math.pow(number, power);
+    public double pow (double number, int power){
+        return Math.pow(number, power);
     }
 
     /**
@@ -22,7 +22,7 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
      * @param a число
      * @return модуль числа
      */
-    public float abs (float a){
+    public double abs (double a){
         return Math.abs(a);
     }
 
@@ -31,7 +31,7 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
      * @param a число
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
-    public float sqrt (float a){
-        return (float) Math.sqrt(a);
+    public double sqrt (double a){
+        return Math.sqrt(a);
     }
 }

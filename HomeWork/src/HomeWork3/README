@@ -1,0 +1,12 @@
+Изучаем: return, инкапсуляция, наследование, переоределение, интефрейсы, циклы, Math, операторы ветвления, декораторы.
+
+Tasks.txt - Задание.
+
+task1/WithOutCalculatorMain.java                - Решение задания 1
+task2/CalculatorWithOperatorMain.java           - Решение задания 2
+task3/CalculatorWithMathCopyMain.java           - Решение задания 3
+task4/CalculatorWithMathExtendsMain.java        - Решение задания 4
+task5/CalculatorWithCounterMain.java            - Решение задания 5
+task6/CalculatorWithCounterInterfaceMain.java   - Решение задания 6
+task7/CalculatorWithMemoryMain.java             - Решение задания 7
+task8/CalculatorDecoratorMain.java              - Решение задания 8

@@ -3,64 +3,50 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="338.75" y="0.0">HomeWork3.task6.ICalculator</node>
-    <node x="266.75" y="160.0">HomeWork3.task3.CalculatorWithMathCopy</node>
-    <node x="391.75" y="80.0">HomeWork3.task2.CalculatorWithOperator</node>
-    <node x="92.0" y="80.0">HomeWork3.task7.CalculatorWithMemory</node>
-    <node x="510.75" y="160.0">HomeWork3.task4.CalculatorWithMathExtends</node>
-    <node x="0.0" y="0.0">HomeWork3.task6.CalculatorWithCounterInterface</node>
+    <node x="474.0" y="0.0">HomeWork3.task6.ICalculator</node>
+    <node x="308.0" y="80.0">HomeWork3.task3.CalculatorWithMathCopy</node>
+    <node x="552.0" y="80.0">HomeWork3.task2.CalculatorWithOperator</node>
+    <node x="40.0" y="160.0">HomeWork3.task7.CalculatorWithMemory</node>
+    <node x="601.25" y="160.0">HomeWork3.task4.CalculatorWithMathExtends</node>
+    <node x="0.0" y="80.0">HomeWork3.task6.CalculatorWithCounterInterface</node>
   </nodes>
   <notes />
   <edges>
     <edge source="HomeWork3.task4.CalculatorWithMathExtends" target="HomeWork3.task2.CalculatorWithOperator">
       <point x="-62.0" y="-15.0" />
-      <point x="572.75" y="135.0" />
-      <point x="559.75" y="135.0" />
-      <point x="56.0" y="15.0" />
-    </edge>
-    <edge source="HomeWork3.task7.CalculatorWithMemory" target="HomeWork3.task6.CalculatorWithCounterInterface">
-      <point x="-52.0" y="-15.0" />
       <point x="0.0" y="15.0" />
     </edge>
-    <edge source="HomeWork3.task3.CalculatorWithMathCopy" target="HomeWork3.task2.CalculatorWithOperator">
-      <point x="55.99999999999994" y="-15.0" />
-      <point x="434.75" y="135.0" />
-      <point x="447.75" y="135.0" />
-      <point x="-56.0" y="15.0" />
-    </edge>
     <edge source="HomeWork3.task3.CalculatorWithMathCopy" target="HomeWork3.task6.ICalculator">
-      <point x="-56.00000000000006" y="-15.0" />
-      <point x="322.75" y="135.0" />
-      <point x="345.5" y="135.0" />
-      <point x="345.5" y="60.0" />
-      <point x="389.75" y="60.0" />
+      <point x="0.0" y="-15.0" />
+      <point x="420.0" y="60.0" />
+      <point x="525.0" y="60.0" />
       <point x="-17.0" y="15.0" />
     </edge>
-    <edge source="HomeWork3.task4.CalculatorWithMathExtends" target="HomeWork3.task6.ICalculator">
-      <point x="62.0" y="-15.0" />
-      <point x="696.75" y="135.0" />
-      <point x="664.1875" y="135.0" />
-      <point x="664.1875" y="50.0" />
-      <point x="457.75" y="50.0" />
-      <point x="51.0" y="15.0" />
-    </edge>
-    <edge source="HomeWork3.task7.CalculatorWithMemory" target="HomeWork3.task6.ICalculator">
-      <point x="52.0" y="-15.0" />
-      <point x="248.0" y="50.0" />
-      <point x="355.75" y="50.0" />
+    <edge source="HomeWork3.task6.CalculatorWithCounterInterface" target="HomeWork3.task6.ICalculator">
+      <point x="0.0" y="-15.0" />
+      <point x="144.0" y="50.0" />
+      <point x="491.0" y="50.0" />
       <point x="-51.0" y="15.0" />
+    </edge>
+    <edge source="HomeWork3.task4.CalculatorWithMathExtends" target="HomeWork3.task6.ICalculator">
+      <point x="62.00000000000003" y="-15.0" />
+      <point x="786.5" y="50.0" />
+      <point x="593.0" y="50.0" />
+      <point x="51.0" y="15.0" />
     </edge>
     <edge source="HomeWork3.task2.CalculatorWithOperator" target="HomeWork3.task6.ICalculator">
       <point x="0.0" y="-15.0" />
-      <point x="503.75" y="60.0" />
-      <point x="423.75" y="60.0" />
+      <point x="664.0" y="60.0" />
+      <point x="559.0" y="60.0" />
       <point x="17.0" y="15.0" />
     </edge>
+    <edge source="HomeWork3.task7.CalculatorWithMemory" target="HomeWork3.task6.CalculatorWithCounterInterface">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="330.0" y="50.0" />
-  <SelectedNodes>
-    <node>HomeWork3.task6.CalculatorWithCounterInterface</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="330.0" y="216.0" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

@@ -14,10 +14,10 @@ public class CalculatorDecoratorMain {
         CalculatorWithMemoryDecorator calculator = new CalculatorWithMemoryDecorator(counterCalc);
 
         //4.1 + 15 * 7 + (28 / 5) ^ 2
-        calculator.addToMemory(calculator.div(28f, 5f));
+        calculator.addToMemory(calculator.div(28.0, 5.0));
         calculator.addToMemory(calculator.pow(calculator.getFromMemory(), 2));
-        calculator.addToMemory(calculator.add(calculator.getFromMemory(), calculator.mult(15f, 7f)));
-        float result = calculator.add(4.1f, calculator.getFromMemory());
+        calculator.addToMemory(calculator.add(calculator.getFromMemory(), calculator.mult(15.0, 7.0)));
+        double result = calculator.add(4.1, calculator.getFromMemory());
 
         System.out.println(result);
         System.out.println("Количество использований калькулятора: " + counterCalc.getCountOperation());

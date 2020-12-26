@@ -6,8 +6,8 @@ import HomeWork3.task6.ICalculator;
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithMemory extends CalculatorWithCounterInterface implements ICalculator{
-    private float memory;
+public class CalculatorWithMemory extends CalculatorWithCounterInterface{
+    private double memory;
     private long countMemoryOperation;
 
     public CalculatorWithMemory(ICalculator calc){
@@ -18,7 +18,7 @@ public class CalculatorWithMemory extends CalculatorWithCounterInterface impleme
      * Данный метод записывает число в память калькулятора
      * @param number число которое необходимо записать в память
      */
-    public void addToMemory(float number){
+    public void addToMemory(double number){
         countingMemory();
         this.memory = number;
     }
@@ -27,9 +27,9 @@ public class CalculatorWithMemory extends CalculatorWithCounterInterface impleme
      * Данный метод возвращает число из памяти калькулятора
      * @return возвращает число из памяти калькулятора, после чего очищает память
      */
-    public float getFromMemory(){
+    public double getFromMemory(){
         countingMemory();
-        float tmp = this.memory;
+        double tmp = this.memory;
         this.memory = 0;
         return tmp ;
     }

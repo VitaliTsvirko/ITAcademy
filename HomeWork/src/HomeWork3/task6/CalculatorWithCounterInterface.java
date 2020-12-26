@@ -7,7 +7,7 @@ import HomeWork3.task4.CalculatorWithMathExtends;
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithCounterInterface {
+public class CalculatorWithCounterInterface implements ICalculator{
     private long countOperation;
     private ICalculator calc;
 
@@ -29,9 +29,9 @@ public class CalculatorWithCounterInterface {
      * @param b число на которое нужно разделить
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
-    public float div(float a, float b){
+    public double div(double a, double b){
         counting();
-        return calc.div(a,b);
+        return calc.div(a, b);
     }
 
     /**
@@ -40,7 +40,7 @@ public class CalculatorWithCounterInterface {
      * @param b число на которое нужно умножить
      * @return результат умножения числа a на b.
      */
-    public float mult (float a, float b){
+    public double mult (double a, double b){
         counting();
         return calc.mult(a,b);
     }
@@ -51,7 +51,7 @@ public class CalculatorWithCounterInterface {
      * @param b число на которое нужно вычесть
      * @return результат вычитания числа a из числа b.
      */
-    public float sub(float a, float b){
+    public double sub(double a, double b){
         counting();
         return calc.sub(a,b);
     }
@@ -62,7 +62,7 @@ public class CalculatorWithCounterInterface {
      * @param b число которое нужно прибавить
      * @return результат сложения числа a и b.
      */
-    public float add (float a, float b){
+    public double add (double a, double b){
         counting();
         return calc.add(a,b);
     }
@@ -73,7 +73,7 @@ public class CalculatorWithCounterInterface {
      * @param power степень
      * @return результат возведения числа number d степень power.
      */
-    public float pow (float number, int power){
+    public double pow (double number, int power){
         counting();
         return calc.pow(number, power);
     }
@@ -83,7 +83,7 @@ public class CalculatorWithCounterInterface {
      * @param a число
      * @return модуль числа
      */
-    public float abs (float a){
+    public double abs (double a){
         counting();
         return calc.abs(a);
     }
@@ -93,7 +93,7 @@ public class CalculatorWithCounterInterface {
      * @param a число
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
-    public float sqrt (float a){
+    public double sqrt (double a){
         counting();
         return calc.sqrt(a);
     }

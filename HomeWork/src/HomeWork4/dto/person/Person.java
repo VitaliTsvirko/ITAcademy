@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Created by Vitali Tsvirko
  */
-public class Person {
+public class Person implements Comparable<Person>{
     String name;
     int age;
 
@@ -32,5 +32,10 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, age);
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return (this.age < o.age ) ? -1 : (this.age > o.age ) ? 1 : 0 ;
     }
 }

@@ -107,6 +107,14 @@ public class DataContainer<T> {
     }
 
     /**
+     * Данный метод выполняет сортировку контейнера c использованием compareTo объекта контейнера
+     * @param container контейнер объектов
+     */
+    public static void sort(DataContainer<? extends Comparable> container){
+        Arrays.sort(container.data);
+    }
+
+    /**
      * Данный метод возвращает строковое представление контейнера
      * @return строковое представление контейнера
      */

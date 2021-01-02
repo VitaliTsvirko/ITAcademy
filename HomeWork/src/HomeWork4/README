@@ -2,9 +2,11 @@
 
 Tasks - Задание.
 
-HomeWork4Main - точка входа (main).
+HomeWork4Main.java          - Задания 1-10.
+HomeWork4Task11Main.java    - Задания 11.
 
-Класс Person опеределен для наполнения контейнера объектами.
+
+Класс Person опеределен для наполнения контейнера объектами и реализует интерфейс Comparable
 Класс PersonComparator реализует интерфейс Comparator для сравнения объектов типа Person
 
 

@@ -115,6 +115,17 @@ public class DataContainer<T> {
     }
 
     /**
+     * Данный метод выполняет сортировку переданного контейнера c использованием переданного объекта который выполняет
+     * сравнивание объектов (Comparator)
+     * @param container контейнер объектов
+     * @param comparator компаратор для объектов контейнера
+     * @param <T> тип данных контейнера
+     */
+    public static <T> void sort(DataContainer<T> container, Comparator comparator){
+        Arrays.sort(container.data, comparator);
+    }
+
+    /**
      * Данный метод возвращает строковое представление контейнера
      * @return строковое представление контейнера
      */

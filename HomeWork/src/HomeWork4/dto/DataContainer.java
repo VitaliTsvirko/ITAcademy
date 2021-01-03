@@ -2,13 +2,14 @@ package HomeWork4.dto;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
  * Данный класс реализует контейнер для хранения, добавления, удаления и сортировки данных обобщённого типа
  * Created by Vitali Tsvirko
  */
-public class DataContainer<T> {
+public class DataContainer<T> implements Iterable<T>{
     private T[] data;
 
     public DataContainer(T[] data){
@@ -153,6 +154,14 @@ public class DataContainer<T> {
         return stringBuilder.toString();
     }
 
+    /**
+     * Данные метод возвращает итератор для контейнера
+     * @return итератор для контейнера
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new Itr();
+    }
 
     /**
      * Данный метод проверяет валидность индекса
@@ -200,4 +209,38 @@ public class DataContainer<T> {
         return -1;
     }
 
+
+    /**
+     * Iterator for DataContainer;
+     */
+    private class Itr implements Iterator<T>{
+        private int cursor;
+        private int lastIndex = -1;
+
+        @Override
+        public boolean hasNext() {
+            return (this.cursor != data.length);
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()){
+                int i = this.cursor;
+                ++this.cursor;
+
+                return data[this.lastIndex = i];
+            }
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            if (lastIndex > 0){
+                this.cursor = lastIndex;
+                delete(lastIndex);
+            }
+        }
+    }
+
 }
+

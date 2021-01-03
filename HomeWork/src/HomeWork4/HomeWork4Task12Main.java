@@ -1,7 +1,5 @@
 package HomeWork4;
 
-import HomeWork3.task2.CalculatorWithOperator;
-import HomeWork3.task5.CalculatorWithCounter;
 import HomeWork4.dto.DataContainer;
 import HomeWork4.dto.person.Person;
 import HomeWork4.dto.person.PersonComparator;

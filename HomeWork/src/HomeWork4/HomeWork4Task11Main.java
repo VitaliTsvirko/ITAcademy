@@ -9,11 +9,12 @@ import java.util.Random;
  */
 public class HomeWork4Task11Main {
     public static void main(String[] args) {
-        DataContainer container = new DataContainer(12);
+        final int personCount = 12;
+        DataContainer<Person> container = new DataContainer<>(new Person[personCount]);
         Random random = new Random();
 
         //Добавление объектов в контейнер
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < personCount; i++) {
             int x = random.nextInt(20);
             container.add(new Person("Name" + x, x));
         }

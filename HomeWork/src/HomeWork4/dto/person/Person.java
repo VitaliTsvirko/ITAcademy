@@ -36,6 +36,6 @@ public class Person implements Comparable<Person>{
 
     @Override
     public int compareTo(Person o) {
-        return (this.age < o.age ) ? -1 : (this.age > o.age ) ? 1 : 0 ;
+        return (this.age < o.age ) ? -1 : (this.age > o.age ) ? 1 : 0;
     }
 }

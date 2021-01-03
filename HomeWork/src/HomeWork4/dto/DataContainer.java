@@ -11,12 +11,8 @@ import java.util.Objects;
 public class DataContainer<T> {
     private T[] data;
 
-    public DataContainer(){
-        this.data = (T[]) (new Object[1]);
-    }
-
-    public DataContainer(int length){
-        this.data = (T[]) (new Object[length]);
+    public DataContainer(T[] data){
+        this.data = data;
     }
 
     /**
@@ -30,7 +26,7 @@ public class DataContainer<T> {
         }
         int freeIndex = findFreeIndex();
 
-        data[freeIndex] = item;
+        this.data[freeIndex] = item;
         return freeIndex;
     }
 
@@ -43,7 +39,7 @@ public class DataContainer<T> {
         if (isIndexNotValid(index)){
             return null;
         }
-        return data[index];
+        return this.data[index];
     }
 
     /**
@@ -64,17 +60,17 @@ public class DataContainer<T> {
             return false;
         }
 
-        if (index == this.data.length){
+        //Удаление последнего элемента контейнера
+        if (index == this.data.length - 1){
             newDataLength(this.data.length - 1);
             return true;
         }
 
+        //Смещение всех элементов контейнера начиная от index на одну позицию влево
         for (int i = index; i < this.data.length - 1; i++) {
             this.data[i] = this.data[i + 1];
         }
-
         newDataLength(this.data.length - 1);
-
         return true;
     }
 
@@ -86,10 +82,12 @@ public class DataContainer<T> {
     public boolean delete(T item){
         int itemIndex = findItem(item);
 
+        //Элемент не найден
         if (itemIndex == -1){
             return false;
         }
 
+        //Удаление всех элементов равных item
         do{
             delete(itemIndex);
             itemIndex = findItem(item);
@@ -110,7 +108,7 @@ public class DataContainer<T> {
      * Данный метод выполняет сортировку контейнера c использованием compareTo объекта контейнера
      * @param container контейнер объектов
      */
-    public static void sort(DataContainer<? extends Comparable> container){
+    public static <T> void sort(DataContainer<? extends Comparable<T>> container){
         Arrays.sort(container.data);
     }
 
@@ -127,7 +125,7 @@ public class DataContainer<T> {
 
     /**
      * Данный метод возвращает строковое представление контейнера
-     * @return строковое представление контейнера
+     * @return строковое представление контейнера. null исключаются из строкового представления
      */
     @Override
     public String toString(){
@@ -150,7 +148,6 @@ public class DataContainer<T> {
 
             stringBuilder.append(item.toString());
         }
-
         stringBuilder.append("]");
 
         return stringBuilder.toString();
@@ -196,7 +193,7 @@ public class DataContainer<T> {
      */
     private int findItem(T item){
         for (int i = 0; i < this.data.length; i++) {
-            if (Objects.equals(data[i], item)) {
+            if (Objects.equals(this.data[i], item)) {
                 return i;
             }
         }

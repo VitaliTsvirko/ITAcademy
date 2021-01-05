@@ -102,7 +102,8 @@ public class DataContainer<T> implements Iterable<T>{
      * @param comparator объект который выполняет сравнение элементов контейнера
      */
     public void sort(Comparator<T> comparator){
-        Arrays.sort(this.data, comparator);
+        //Arrays.sort(this.data, comparator);
+        sorter(this.getItems(), comparator);
     }
 
     /**
@@ -110,7 +111,8 @@ public class DataContainer<T> implements Iterable<T>{
      * @param container контейнер объектов
      */
     public static <T> void sort(DataContainer<? extends Comparable<T>> container){
-        Arrays.sort(container.data);
+        //Arrays.sort(container.data);
+        sorter(container.getItems(), null);
     }
 
     /**
@@ -120,8 +122,9 @@ public class DataContainer<T> implements Iterable<T>{
      * @param comparator компаратор для объектов контейнера
      * @param <T> тип данных контейнера
      */
-    public static <T> void sort(DataContainer<T> container, Comparator comparator){
-        Arrays.sort(container.data, comparator);
+    public static <T> void sort(DataContainer<T> container, Comparator<T> comparator){
+        //Arrays.sort(container.data, comparator);
+        sorter(container.getItems(), comparator);
     }
 
     /**
@@ -161,6 +164,49 @@ public class DataContainer<T> implements Iterable<T>{
     @Override
     public Iterator<T> iterator() {
         return new Itr();
+    }
+
+
+    /**
+     * Данный метод выполняет сортировку используя интерфейсы Сomparator или Comparable
+     * @param array массив для сортировки
+     * @param comparator компаратор для объектов контейнера. Если равен null, то используется compareTo
+     * @param <T> тип данных контейнера
+     */
+    private static <T> void sorter(T[] array, Comparator<T> comparator){
+        boolean isSwap;
+        boolean needSwap;
+
+        do {
+            isSwap = false;
+            for (int i = 0; i < array.length - 1; i++) {
+                if (comparator == null){
+                    Comparable o1 = (Comparable) array[i];
+                    Comparable o2 = (Comparable) array[i + 1];
+                    needSwap =  (o1.compareTo(o2) > 0);
+                } else {
+                    needSwap = (comparator.compare(array[i], array[i+1]) > 0);
+                }
+
+                if (needSwap){
+                    swap(array, i, i + 1);
+                    isSwap = true;
+                }
+            }
+        }while (isSwap);
+    }
+
+    /**
+     * Данные метод меняет местами элементы массива
+     * @param array массив
+     * @param from индекс первого элемента
+     * @param to индекс второго элемента
+     * @param <T> тип элементов массива
+     */
+    private static <T> void swap(T[] array, int from, int to){
+        T tmp = array[from];
+        array[from] = array[to];
+        array[to] = tmp;
     }
 
     /**

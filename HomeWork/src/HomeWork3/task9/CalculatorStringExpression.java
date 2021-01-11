@@ -64,7 +64,7 @@ public class CalculatorStringExpression {
 
         for (String item : reversePolishNotation) {
              //Текущий элемент это число
-            if (item.matches("[0-9.0-9]+")) {
+            if (item.matches("[0-9]*\\.?[0-9]*")) {
                 //symbol is digit
                 stack.addLast(Double.parseDouble(item));
                 continue;
@@ -228,15 +228,13 @@ public class CalculatorStringExpression {
         expression = expression.replace(" ", "");
 
         //Проверяем начало выражения
-        char firstSymbol = expression.charAt(0);
-        if (!Character.isDigit(firstSymbol) && firstSymbol != '(' && firstSymbol != '|' && firstSymbol != '-'){
-            throw new IllegalStateException("Illegal expression. Expression begins with operator sign");
+        if (!(expression.matches("^(PI|E|\\d|\\-|\\(|\\|).*"))){
+            throw new IllegalStateException("Expression begins with unknown character");
         }
 
         //Проверяем конец выражения
-        char lastSymbol = expression.charAt(expression.length() - 1);
-        if (!Character.isDigit(lastSymbol) && lastSymbol != ')' && lastSymbol != '|'){
-            throw new IllegalStateException("Illegal expression. Expression ends with operator sign");
+        if (!(expression.matches(".*(PI|E|\\d|\\-|\\)|\\|)$"))){
+            throw new IllegalStateException("Expression ends with unknown character");
         }
 
         /*Проверка скобок*/
@@ -297,7 +295,7 @@ public class CalculatorStringExpression {
 
     /**
      * Данные метод перемещает элементы из стека в список reversePolishNotation
-     * Перемещение выполняется пока стэк не пуст или пока в стеке не встретится символ открывающейся скобки,
+     * Перемещение выполняется пока стек не пуст или пока в стеке не встретится символ открывающейся скобки,
      * который был передан в переменной openBracketSymbol.
      * @param stack стэк (LIFO)
      * @param openBracketSymbol символ открывающейся скобки до которого будет производиться перемещение

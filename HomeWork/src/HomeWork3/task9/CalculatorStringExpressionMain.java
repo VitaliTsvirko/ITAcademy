@@ -22,6 +22,7 @@ public class CalculatorStringExpressionMain {
                                     "|3 - 7| + |4 -",
                                     "(",
                                     "(1+",
+                                    "+12+12",
                                     "4.1 + 15 * 7 + (28 / 5) ^ 2"};
 
 

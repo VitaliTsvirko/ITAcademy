@@ -10,17 +10,16 @@ import HomeWork3.task7.CalculatorWithMemory;
  */
 public class CalculatorDecoratorMain {
     public static void main(String[] args) {
-        CalculatorWithCounterDecorator counterCalc = new CalculatorWithCounterDecorator(new CalculatorWithMathExtends());
-        CalculatorWithMemoryDecorator calculator = new CalculatorWithMemoryDecorator(counterCalc);
+        ICalculator calculator = new CalculatorWithMemoryDecorator(new CalculatorWithCounterDecorator(new CalculatorWithMathExtends()));
 
         //4.1 + 15 * 7 + (28 / 5) ^ 2
-        calculator.addToMemory(calculator.div(28.0, 5.0));
-        calculator.addToMemory(calculator.pow(calculator.getFromMemory(), 2));
-        calculator.addToMemory(calculator.add(calculator.getFromMemory(), calculator.mult(15.0, 7.0)));
-        double result = calculator.add(4.1, calculator.getFromMemory());
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.div(28.0, 5.0));
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.pow(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), 2));
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.add(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), calculator.mult(15.0, 7.0)));
+        double result = calculator.add(4.1, ((CalculatorWithMemoryDecorator) calculator).getFromMemory());
 
         System.out.println(result);
-        System.out.println("Количество использований калькулятора: " + counterCalc.getCountOperation());
-        System.out.println("Последнее сохраненное значение: " + calculator.getLastSaveValue());
+        System.out.println("Количество использований калькулятора: " + ((CalculatorWithCounterDecorator) ((CalculatorWithMemoryDecorator) calculator).getCalculator()).getCountOperation());
+        System.out.println("Последнее сохраненное значение: " + ((CalculatorWithMemoryDecorator) calculator).getLastSaveValue());
     }
 }

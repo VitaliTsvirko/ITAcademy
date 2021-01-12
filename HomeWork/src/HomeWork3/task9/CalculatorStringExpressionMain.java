@@ -1,7 +1,5 @@
 package HomeWork3.task9;
 
-import calc.ExpressionUtils;
-
 /**
  * Created by Vitali Tsvirko
  */
@@ -23,6 +21,8 @@ public class CalculatorStringExpressionMain {
                                     "(",
                                     "(1+",
                                     "+12+12",
+                                    "12 + 12 / (1.3 - 1.3)",
+                                    "12 ~ 12 / (1.3 - 1.3)",
                                     "4.1 + 15 * 7 + (28 / 5) ^ 2"};
 
 

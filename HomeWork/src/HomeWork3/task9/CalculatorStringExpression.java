@@ -1,6 +1,10 @@
 package HomeWork3.task9;
 
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *  <p>Данный класс выполняет расчет математического выражения заданного в строке</p>
@@ -86,7 +90,7 @@ public class CalculatorStringExpression {
              * Текущий элемент это операнд
              */
             if (stack.isEmpty()){
-                throw new IllegalStateException("Empty stack");
+                throw new IllegalStateException("Calculation error. Empty stack");
             }
 
             //Вычисление выражения
@@ -97,7 +101,7 @@ public class CalculatorStringExpression {
         }
 
         if (stack.size() != 1){
-            throw new IllegalStateException("Syntax error in expression");
+            throw new IllegalStateException("Calculation error. Syntax error in expression");
         }
 
         return stack.pollLast();
@@ -229,12 +233,12 @@ public class CalculatorStringExpression {
 
         //Проверяем начало выражения
         if (!(expression.matches("^(PI|E|\\d|\\-|\\(|\\|).*"))){
-            throw new IllegalStateException("Expression begins with unknown character");
+            throw new IllegalStateException("Expression begins with wrong character");
         }
 
         //Проверяем конец выражения
         if (!(expression.matches(".*(PI|E|\\d|\\-|\\)|\\|)$"))){
-            throw new IllegalStateException("Expression ends with unknown character");
+            throw new IllegalStateException("Expression ends with wrong character");
         }
 
         /*Проверка скобок*/
@@ -331,7 +335,7 @@ public class CalculatorStringExpression {
                 return operand1 * operand2;
             case "/":
                 if (operand2 == 0){
-                    throw new ArithmeticException("Division by zero");
+                    throw new ArithmeticException("Calculation error. Division by zero");
                 }
                 return operand1 / operand2;
             case "+":
@@ -343,7 +347,7 @@ public class CalculatorStringExpression {
             case "|":
                 return Math.abs(operand2);
             default:
-                throw new IllegalStateException("Illegal operation sign in stack");
+                throw new IllegalStateException("Calculation error. Illegal operation sign in stack");
         }
     }
 

@@ -6,21 +6,103 @@ import HomeWork3.task6.ICalculator;
 /**
  * Created by Vitali Tsvirko
  */
-public class CalculatorWithMemory extends CalculatorWithCounterInterface{
+public class CalculatorWithMemory implements ICalculator{
     private double memory;
-    private long countMemoryOperation;
+    private double lastCalculatedValue;
+    private ICalculator calc;
+    private long countOperation;
 
     public CalculatorWithMemory(ICalculator calc){
-        super(calc);
+        this.calc = calc;
+    }
+
+    /**
+     * Данный метод выполняет деление числа a на b
+     * @param a число которое нужно разделить
+     * @param b число на которое нужно разделить
+     * @return результат деления числа a на b. Если b равно нулю вернет ноль.
+     */
+    @Override
+    public double div(double a, double b) {
+        counting();
+        return this.lastCalculatedValue = this.calc.div(a,b);
+    }
+
+    /**
+     * Данный метод выполняет умножение числа a на b
+     * @param a число которое нужно умножить
+     * @param b число на которое нужно умножить
+     * @return результат умножения числа a на b.
+     */
+    @Override
+    public double mult(double a, double b) {
+        counting();
+        return this.lastCalculatedValue = this.calc.mult(a,b);
+    }
+
+    /**
+     * Данный метод выполняет вычитание числа a на b
+     * @param a число из которого нужно вычесть
+     * @param b число на которое нужно вычесть
+     * @return результат вычитания числа a из числа b.
+     */
+    @Override
+    public double sub(double a, double b) {
+        counting();
+        return this.lastCalculatedValue = this.calc.sub(a,b);
+    }
+
+    /**
+     * Данный метод выполняет сложение числа a на b
+     * @param a число к которому нужно прибавить
+     * @param b число которое нужно прибавить
+     * @return результат сложения числа a и b.
+     */
+    @Override
+    public double add(double a, double b) {
+        counting();
+        return this.lastCalculatedValue = this.calc.add(a,b);
+    }
+
+    /**
+     * Данный метод выполняет возведение в степень
+     * @param number число которое необходимо возвести в степень
+     * @param power степень
+     * @return результат возведения числа number d степень power.
+     */
+    @Override
+    public double pow(double number, int power) {
+        counting();
+        return this.lastCalculatedValue = this.calc.pow(number,power);
+    }
+
+    /**
+     * Данный метод возвращает модуль числа
+     * @param a число
+     * @return модуль числа
+     */
+    @Override
+    public double abs(double a) {
+        counting();
+        return this.lastCalculatedValue = this.calc.abs(a);
+    }
+
+    /**
+     * Данный метод извлекает квадратный корень из числа
+     * @param a число
+     * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
+     */
+    @Override
+    public double sqrt(double a) {
+        counting();
+        return this.lastCalculatedValue = this.calc.sqrt(a);
     }
 
     /**
      * Данный метод записывает число в память калькулятора
-     * @param number число которое необходимо записать в память
      */
-    public void addToMemory(double number){
-        countingMemory();
-        this.memory = number;
+    public void addToMemory(){
+        this.memory = this.lastCalculatedValue;
     }
 
     /**
@@ -28,34 +110,25 @@ public class CalculatorWithMemory extends CalculatorWithCounterInterface{
      * @return возвращает число из памяти калькулятора, после чего очищает память
      */
     public double getFromMemory(){
-        countingMemory();
         double tmp = this.memory;
         this.memory = 0;
+        this.lastCalculatedValue = 0;
         return tmp ;
     }
 
     /**
      * Данный метод возвращает количество использований калькулятора
-     * @return возвращает количество использований всех операций калькулятора
+     * @return возвращает количество использований калькулятора
      */
-    @Override
     public long getCountOperation() {
-        return super.getCountOperation() + this.countMemoryOperation;
+        return this.countOperation;
     }
 
     /**
-     * Данный метод возвращает количество использований памяти калькулятора
-     * @return
+     * Данный метод считает количество использований калькулятора
      */
-    public long getMemoryOperation(){
-        return countMemoryOperation;
-    }
-
-    /**
-     * Данный метод считает количество использований памяти калькулятора
-     */
-    private void countingMemory(){
-        ++this.countMemoryOperation;
+    private void counting(){
+        ++countOperation;
     }
 
 }

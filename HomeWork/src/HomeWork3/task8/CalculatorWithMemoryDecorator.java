@@ -7,6 +7,7 @@ import HomeWork3.task6.ICalculator;
  */
 public class CalculatorWithMemoryDecorator implements ICalculator {
     private double memory;
+    private double lastCalculatedValue;
     private double lastSaveValue;
     ICalculator calc;
 
@@ -25,10 +26,10 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
 
     /**
      * Данный метод записывает число в память калькулятора
-     * @param number число которое необходимо записать в память
      */
-    public void addToMemory(double number){
-        this.memory = number;
+    public void addToMemory(){
+        this.memory = this.lastCalculatedValue;
+        this.lastSaveValue = this.memory;
     }
 
     /**
@@ -36,15 +37,11 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return возвращает число из памяти калькулятора, после чего очищает память
      */
     public double getFromMemory(){
-        this.lastSaveValue = this.memory;
+        double tmp = this.memory;
         this.memory = 0;
-        return lastSaveValue ;
+        this.lastCalculatedValue = 0;
+        return tmp ;
     }
-
-    public double getLastSaveValue(){
-        return this.lastSaveValue;
-    }
-
 
     /**
      * Данный метод выполняет деление числа a на b
@@ -53,7 +50,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат деления числа a на b. Если b равно нулю вернет ноль.
      */
     public double div(double a, double b){
-        return this.calc.div(a,b);
+        return this.lastCalculatedValue = this.calc.div(a,b);
     }
 
     /**
@@ -63,7 +60,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат умножения числа a на b.
      */
     public double mult (double a, double b){
-        return this.calc.mult(a,b);
+        return this.lastCalculatedValue = this.calc.mult(a,b);
     }
 
     /**
@@ -73,7 +70,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат вычитания числа a из числа b.
      */
     public double sub(double a, double b){
-        return this.calc.sub(a,b);
+        return this.lastCalculatedValue = this.calc.sub(a,b);
     }
 
     /**
@@ -83,7 +80,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат сложения числа a и b.
      */
     public double add (double a, double b){
-        return this.calc.add(a,b);
+        return this.lastCalculatedValue = this.calc.add(a,b);
     }
 
     /**
@@ -93,7 +90,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат возведения числа number d степень power.
      */
     public double pow (double number, int power){
-        return this.calc.pow(number, power);
+        return this.lastCalculatedValue = this.calc.pow(number, power);
     }
 
     /**
@@ -102,7 +99,7 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return модуль числа
      */
     public double abs (double a){
-        return this.calc.abs(a);
+        return this.lastCalculatedValue = this.calc.abs(a);
     }
 
     /**
@@ -111,7 +108,15 @@ public class CalculatorWithMemoryDecorator implements ICalculator {
      * @return результат извлечения квадратного корня числа. Если число отрицательное вернет ноль.
      */
     public double sqrt (double a){
-        return this.calc.sqrt(a);
+        return this.lastCalculatedValue = this.calc.sqrt(a);
+    }
+
+    /**
+     * Данный метод возвращает последнее сохраненное в память значение
+     * @return возвращает последнее сохраненное в память калькулятора число
+     */
+    public double getLastSaveValue(){
+        return this.lastSaveValue;
     }
 
 }

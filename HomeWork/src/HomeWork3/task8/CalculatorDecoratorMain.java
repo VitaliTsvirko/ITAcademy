@@ -13,9 +13,12 @@ public class CalculatorDecoratorMain {
         ICalculator calculator = new CalculatorWithMemoryDecorator(new CalculatorWithCounterDecorator(new CalculatorWithMathExtends()));
 
         //4.1 + 15 * 7 + (28 / 5) ^ 2
-        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.div(28.0, 5.0));
-        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.pow(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), 2));
-        ((CalculatorWithMemoryDecorator) calculator).addToMemory(calculator.add(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), calculator.mult(15.0, 7.0)));
+        calculator.div(28.0, 5.0);
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory();
+        calculator.pow(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), 2);
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory();
+        calculator.add(((CalculatorWithMemoryDecorator) calculator).getFromMemory(), calculator.mult(15.0, 7.0));
+        ((CalculatorWithMemoryDecorator) calculator).addToMemory();
         double result = calculator.add(4.1, ((CalculatorWithMemoryDecorator) calculator).getFromMemory());
 
         System.out.println(result);

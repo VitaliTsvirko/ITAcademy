@@ -17,6 +17,9 @@ public class MapValueComparator<K, V> implements Comparator<V>{
         public int compare(Object keyA, Object keyB) {
             Comparable valueA = (Comparable) map.get(keyA);
             Comparable valueB = (Comparable) map.get(keyB);
-            return valueB.compareTo(valueA);
+
+            //Если value равны, то сравниваем key
+            int valueComparison = valueB.compareTo(valueA);
+            return valueComparison == 0 ?  ((Comparable) keyB).compareTo(keyA) : valueComparison;
         }
 }

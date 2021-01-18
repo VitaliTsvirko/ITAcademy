@@ -132,7 +132,7 @@ public class HomeWork5Main {
         if (file.exists()){
             return fullPath;
         } else {
-            throw new FileNotFoundException("Файл не найден. Путь к файлу:\" + textFilePath");
+            throw new FileNotFoundException("Файл не найден. Путь к файлу:" + fullPath);
         }
     }
 

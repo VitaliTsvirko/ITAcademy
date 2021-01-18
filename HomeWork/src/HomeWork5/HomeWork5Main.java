@@ -1,8 +1,6 @@
 package HomeWork5;
 
-import HomeWork5.utils.EasySearch;
-import HomeWork5.utils.MapValueComparator;
-import HomeWork5.utils.RegExSearch;
+import HomeWork5.utils.*;
 
 import java.io.*;
 import java.nio.file.FileSystemException;
@@ -113,6 +111,25 @@ public class HomeWork5Main {
             System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
         }
 
+        /*
+        4.3* Написать декоратор SearchEngineNormalizer для ISearchEngine который будет удалять нежелательные символы.
+                Любые знаки препинания, лишние пробелы и например переводы строк.
+        */
+
+        ISearchEngine easySearchWithStringNormalize = new SearchEngineNormalizer(new EasySearch());
+        System.out.println("\nПоиск с использованием easySearchWithStringNormalize (без учета регистра)");
+        for (String searchWord : searchWords) {
+            long searchWordNumber = easySearchWithStringNormalize.search(textLowerCase, searchWord.toLowerCase());
+            System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
+        }
+
+
+        ISearchEngine regExSearchWithStringNormalize = new SearchEngineNormalizer(new RegExSearch());
+        System.out.println("\nПоиск с использованием RegExSearch (без учета регистра)");
+        for (String searchWord : searchWords) {
+            long searchWordNumber = regExSearchWithStringNormalize.search(textLowerCase, searchWord.toLowerCase());
+            System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
+        }
     }
 
 

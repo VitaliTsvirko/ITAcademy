@@ -63,11 +63,12 @@ public class HomeWork5Main {
 
         //Сортировка по значению
         Map<String, Long> numberEachWordSortedByNumber = sortByValue(numberOfEachWord);
+        int topWordsToPrint = 10;
 
-        System.out.println("\nТоп 10 слов:");
+        System.out.printf("\nТоп %d слов:\n", topWordsToPrint);
         int i = 0;
         for (String key : numberEachWordSortedByNumber.keySet()) {
-            if (i++ < 10) {
+            if (i++ < topWordsToPrint) {
                 System.out.printf("%d. \"%s\" - %d раз%n", i, key, numberOfEachWord.get(key));
             } else {
                 break;

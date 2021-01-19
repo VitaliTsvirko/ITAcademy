@@ -131,6 +131,31 @@ public class HomeWork5Main {
             long searchWordNumber = regExSearchWithStringNormalize.search(textLowerCase, searchWord.toLowerCase());
             System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
         }
+
+
+        /*
+            4.4* Написать декоратор для ISearchEngine который будет позволять искать данные без учёта регистра.
+         */
+
+        RegExSearchNormalizer RegExSearchNormalizer1 = new RegExSearchNormalizer(new EasySearch());
+        RegExSearchNormalizer1.setCaseInsensitive(false);
+
+        System.out.println("\nПоиск с использованием RegExSearchNormalizer(new EasySearch()) (c учетом регистра)");
+        for (String searchWord : searchWords) {
+            long searchWordNumber = RegExSearchNormalizer1.search(textFromFile, searchWord);
+            System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
+        }
+
+
+        RegExSearchNormalizer RegExSearchNormalizer2 = new RegExSearchNormalizer(new RegExSearch());
+        RegExSearchNormalizer2.setCaseInsensitive(true);
+
+        System.out.println("\nПоиск с использованием RegExSearchNormalizer(new RegExSearch()) (без учета регистра)");
+        for (String searchWord : searchWords) {
+            long searchWordNumber = RegExSearchNormalizer2.search(textFromFile, searchWord);
+            System.out.printf("Слово \"%s\" встречается %d раз%n", searchWord, searchWordNumber);
+        }
+
     }
 
 

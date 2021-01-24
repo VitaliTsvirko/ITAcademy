@@ -1,4 +1,4 @@
-package HomeWork5.utils;
+package HomeWork5.dto;
 
 public interface ISearchEngine {
     /**

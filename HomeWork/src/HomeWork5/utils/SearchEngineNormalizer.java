@@ -1,9 +1,11 @@
 package HomeWork5.utils;
 
+import HomeWork5.dto.ISearchEngine;
+
 /**
  * Created by Vitali Tsvirko
  */
-public class SearchEngineNormalizer implements ISearchEngine{
+public class SearchEngineNormalizer implements ISearchEngine {
     ISearchEngine searcher;
 
     public SearchEngineNormalizer(ISearchEngine searcher) {
@@ -28,8 +30,10 @@ public class SearchEngineNormalizer implements ISearchEngine{
      * @return текстовая строка без специальных символов и двойных пробелов
      */
     private String stringNormalizer(String text){
-        return text.replaceAll("([+*:.,!?();\"\'\\|\\[\\]\\n\\r])|(-{2,})", " ")
-                .trim()
-                .replaceAll("\\s{2,}", " ");
+        return text.replaceAll("([+*:.,!?();=<>\\n\\r])|(-{2,})", " ")     //Убираем символы + * : . , ! ? ( ) ; = < > -- и строки
+                .replaceAll("[\"'|\\[\\]]", " ")                           //Убираем символы " ' | [ ]
+                .replaceAll("(\\s-)|(^-)", " ")                            //Убираем символы -
+                .trim()                                                                    //Убираем пробелы в начале и конце строки
+                .replaceAll("\\s{2,}", " ");                               //Убираем двойные символы
     }
 }

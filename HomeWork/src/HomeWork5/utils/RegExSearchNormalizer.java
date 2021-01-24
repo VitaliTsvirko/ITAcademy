@@ -1,11 +1,11 @@
 package HomeWork5.utils;
 
-import java.util.Locale;
+import HomeWork5.dto.ISearchEngine;
 
 /**
  * Created by Vitali Tsvirko
  */
-public class RegExSearchNormalizer implements ISearchEngine{
+public class RegExSearchNormalizer implements ISearchEngine {
     ISearchEngine searcher;
     private boolean caseInsensitive;
 

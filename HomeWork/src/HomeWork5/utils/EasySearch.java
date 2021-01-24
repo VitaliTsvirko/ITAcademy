@@ -1,12 +1,14 @@
 package HomeWork5.utils;
 
+import HomeWork5.dto.ISearchEngine;
+
 /**
  * Created by Vitali Tsvirko
  */
-public class EasySearch implements ISearchEngine{
+public class EasySearch implements ISearchEngine {
 
     /**
-     * Метод возвращает информации о количестве раз которое встречается слово в тексте.
+     * Метод возвращает сколько раз встречается слово в тексте.
      * @param text текст в котором ищем
      * @param word текст который ищем в тексте
      * @return число раз которое встречается слово word в тексте text
@@ -27,18 +29,18 @@ public class EasySearch implements ISearchEngine{
     }
 
     /**
-     * Данный метод проверяет является ли слово последовательность символов с позиции index и длинной wordLength
+     * Данный метод проверяет является ли словом последовательность символов с позиции index и длинной wordLength
      * отдельным словом.
      * @param text текст в котором выполняется поиск
      * @param index позиция с которой выполняется проверка
      * @param wordLength длина слова
-     * @return true если строке [index - index+wordLength] является словом, false - если не является словом
+     * @return true если строка [index - index+wordLength] является словом, false - если не является словом
      */
     private boolean isSingleWord(String text, int index, int wordLength){
         //Если это начало или конец текста, то считаем что граничные символы это ' '
         int prevCharCode = (index == 0) ? 32 : text.charAt(index - 1);
-        int nextCharCode = (index == text.length() - 1) ? 32 : text.charAt(index + wordLength);
+        int nextCharCode = (index == text.length() - 1 || index + wordLength == wordLength) ? 32 : text.charAt(index + wordLength);
 
-        return (!(Character.isLetter(prevCharCode) || Character.isLetter(nextCharCode)));
+        return (nextCharCode != 45 && !Character.isLetter(prevCharCode) && !Character.isLetter(nextCharCode) );
     }
 }

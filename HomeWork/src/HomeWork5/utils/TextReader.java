@@ -15,25 +15,19 @@ public class TextReader {
      */
     public static String readTextFromFile(String textFilePath) throws Exception {
         StringBuilder textFileData = new StringBuilder();
-        BufferedReader bufferedReader = null;
-
-        try{
-            bufferedReader = new BufferedReader(new FileReader(textFilePath));
-        }catch (FileNotFoundException e){
-            throw new FileNotFoundException("Файл не найден. Путь к файлу:" + textFilePath);
-        }
-
         String textLine;
 
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(textFilePath))){
             textLine = bufferedReader.readLine();
             while(textLine != null){
                 textFileData.append(textLine);
                 textFileData.append("\n");
                 textLine = bufferedReader.readLine();
             }
-            bufferedReader.close();
-        } catch (IOException | NullPointerException e){
+        } catch (FileNotFoundException e){
+            throw new FileNotFoundException("Файл не найден. Путь к файлу:" + textFilePath);
+        }
+        catch (IOException | NullPointerException e){
             throw e;
         }
 

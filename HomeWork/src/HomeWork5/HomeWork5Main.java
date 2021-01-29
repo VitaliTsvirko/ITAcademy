@@ -1,11 +1,12 @@
 package HomeWork5;
 
 import HomeWork5.dto.ISearchEngine;
-import HomeWork5.utils.PathToFileBuilder;
 import HomeWork5.dto.TextWordsStatistic;
-import HomeWork5.utils.TextReader;
 import HomeWork5.utils.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -14,6 +15,7 @@ import java.util.*;
 public class HomeWork5Main {
     public static void main(String[] args) {
         String textFromFile;
+        String resourceFolderName = "resources";
         String fileName = "Война и мир_книга.txt";
 
         /* Для тестирования:*/
@@ -23,15 +25,27 @@ public class HomeWork5Main {
        //fileName = "empty.txt";
        //fileName = "NoExistFile.txt";
 
+        String resourceName = resourceFolderName.isEmpty() ? fileName : resourceFolderName + "/" + fileName;
 
         /*
             Чтение текста из файла
          */
         try{
-            String textFilePath = PathToFileBuilder.buildPathToFileInCurrentProject(fileName, "HomeWork", "src", "HomeWork5", "resources");
-            textFromFile = TextReader.readTextFromFile(textFilePath);
-        }catch (NullPointerException e){
+            URL resource = HomeWork5Main.class.getResource(resourceName);
+            if (resource == null) {
+                throw new FileNotFoundException("Файл " + fileName  + " не найден!");
+            }
+
+            File file = new File(resource.toURI());
+            textFromFile = TextReader.readTextFromFile(file.getPath());
+
+        }catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch (NullPointerException e){
             System.out.println("Ошибка!");
+            e.printStackTrace();
             return;
         }catch (Exception e){
             System.out.println("Ошибка чтения файла. " + e.getMessage());

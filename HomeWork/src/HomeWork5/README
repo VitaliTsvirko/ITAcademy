@@ -5,10 +5,11 @@ Tasks - Задание.
 HomeWork5Main.java      - Main (точка входа).
 resources               - Текстовые файлы, из которых берется текст для дальнейшей работы.
 
-dto.PathToFileBuilder   - Реализует построение полного пути к файлу
-dto.TextWordsStatistic  - Задание 2.
-dto.ISearchEngine.java  - интерфейс ISearchEngine
+dto.TextWordsStatistic          - Задание 2.
+dto.ISearchEngine.java          - интерфейс ISearchEngine
+dto.MapValueComparator.java     - Компаратор для сравнения Map по значению
 
+utils.TextReader.java           - Реализует чтение текста из текстового файла
 utils.EasySearch.java           - Задание 4.1. Реализован поиск используя метод indexOf из класса String.
 utils.RegExSearch.java          - Задание 4.2. Реализован поиск при помощи класса Matcher.
 utils.SearchEngineNormalizer    - Задание 4.3. Реализует декоратор для интерфейса ISearchEngine и выполняет поиск слова

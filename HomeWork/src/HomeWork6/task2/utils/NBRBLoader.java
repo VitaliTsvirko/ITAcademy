@@ -1,6 +1,4 @@
-package HomeWork6.utils;
-
-import HomeWork6.utils.SiteLoader;
+package HomeWork6.task2.utils;
 
 /**
  * Загрузчик курса с сайта Нац. Банка

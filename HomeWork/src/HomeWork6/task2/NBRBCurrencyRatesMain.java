@@ -1,7 +1,7 @@
-package HomeWork6;
+package HomeWork6.task2;
 
-import HomeWork6.utils.NBRBLoader;
-import HomeWork6.utils.SiteLoader;
+import HomeWork6.task2.utils.NBRBLoader;
+import HomeWork6.task2.utils.SiteLoader;
 
 /**
  * Created by Vitali Tsvirko

@@ -1,9 +1,14 @@
 package HomeWork6;
 
-import HomeWork6.utils.SiteDataLoader;
+import HomeWork6.dto.Currency;
+import HomeWork6.dto.CurrencyRates;
+import HomeWork6.utils.CurrencyRatesSaveToFile;
 import HomeWork6.utils.nbrb.NBRBCurrencyRates;
 import HomeWork6.utils.nbrb.test.SiteDataLoaderForTest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +25,7 @@ public class NBRBCurrencyRatesOnDateMain {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Map<Date, Double> currencyRates = new TreeMap<>();
 
-        List<Date> dateRange = new ArrayList<>(2);
+        List<Date> dateRange = new ArrayList<>(1);
 
         if (args.length == 0){
             System.err.println("Не задана дата.\nКурсы валют будут выведены на текущую дату");
@@ -35,50 +40,77 @@ public class NBRBCurrencyRatesOnDateMain {
         }
 
 
+        System.out.print("Введите пусть для сохранения данных курсов валют:");
+        Scanner scanner = new Scanner(System.in);
+
+        String pathFromUser = scanner.next();
+        File file = new File(pathFromUser);
+        if (!file.exists()){
+            System.err.println("Указан не верный путь. Файл будет создан: " + System.getProperty("user.dir"));
+            file = new File(System.getProperty("user.dir"));
+        }
+
+        CurrencyRates usdCurrencyRates = new CurrencyRates(Currency.USD);
+        CurrencyRates eurCurrencyRates = new CurrencyRates(Currency.EUR);
+        CurrencyRates rubCurrencyRates = new CurrencyRates(Currency.RUB);
 
 
-        currencyRates = getCurrencyRates(loader, NBRBCurrencyRates.Currency.USD, dateRange);
-        printCurrencyRates(currencyRates, dateFormat, NBRBCurrencyRates.Currency.USD);
-        currencyRates = getCurrencyRates(loader, NBRBCurrencyRates.Currency.EUR, dateRange);
-        printCurrencyRates(currencyRates, dateFormat, NBRBCurrencyRates.Currency.EUR);
-        currencyRates = getCurrencyRates(loader, NBRBCurrencyRates.Currency.RUB, dateRange);
-        printCurrencyRates(currencyRates, dateFormat, NBRBCurrencyRates.Currency.RUB);
+        getCurrencyRates(loader, usdCurrencyRates, dateRange);
+        getCurrencyRates(loader, eurCurrencyRates, dateRange);
+        getCurrencyRates(loader, rubCurrencyRates, dateRange);
+
+/*        printCurrencyRates(usdCurrencyRates, dateFormat);
+        printCurrencyRates(eurCurrencyRates, dateFormat);
+        printCurrencyRates(rubCurrencyRates, dateFormat);*/
+
+
+
+       CurrencyRatesSaveToFile fileSaver =  new CurrencyRatesSaveToFile();
+       try {
+           fileSaver.writeToFile(usdCurrencyRates, dateFormat, file);
+           fileSaver.writeToFile(eurCurrencyRates, dateFormat, file);
+           fileSaver.writeToFile(rubCurrencyRates, dateFormat, file);
+       } catch (IOException e){
+           e.getMessage();
+       }
+
+
+
+
 
     }
 
 
     /**
      * Данный метод выводит на экран курсы валют за период
-     * @param currencyRates {@code Map} с данными о курсах валюты
      * @param dateFormat формат даты для вывода
      */
-    public static void printCurrencyRates(Map<Date, Double> currencyRates, DateFormat dateFormat, NBRBCurrencyRates.Currency currencyName){
-        System.out.println("Курс " + currencyName.name() + ":");
-        for (Date date : currencyRates.keySet()) {
-            System.out.println(dateFormat.format(date) + " : " + currencyRates.get(date));
+    public static void printCurrencyRates(CurrencyRates dataContainer, DateFormat dateFormat){
+        System.out.println("Курс " + dataContainer.getCurrencyName() + ":");
+        for (Date date : dataContainer.getData().keySet()) {
+            System.out.println(dateFormat.format(date) + " : " + dataContainer.getData().get(date));
         }
     }
 
     /**
      * Данный метод возвращает {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты по отношению к белорусскому рублю
      * @param loader объект который осуществляет загрузку данных с сайта
-     * @param currencyName валюта для которой необходимо получить курс
      * @param dateRange {@code List<Date>} содержащий дату или диапазон дат (начальная, конечная).
      * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      */
-    public static Map<Date, Double> getCurrencyRates (NBRBCurrencyRates loader, NBRBCurrencyRates.Currency currencyName, List<Date> dateRange){
+    public static void getCurrencyRates (NBRBCurrencyRates loader, CurrencyRates dataContainer, List<Date> dateRange){
         try {
-            return (dateRange.size() == 1)
-                    ? loader.getCurrencyRatesOnDate(currencyName, dateRange.get(0))
-                    : loader.getCurrencyRatesOnDateRange(currencyName, dateRange.get(0), dateRange.get(1));
+            if ((dateRange.size() == 1)) {
+                loader.getCurrencyRatesOnDate(dataContainer, dateRange.get(0));
+            } else {
+                loader.getCurrencyRatesOnDateRange(dataContainer, dateRange.get(0), dateRange.get(1));
+            }
 
         } catch (ParseException |  RuntimeException e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
             System.exit(-200);
         }
-
-        return null;
     }
 
 

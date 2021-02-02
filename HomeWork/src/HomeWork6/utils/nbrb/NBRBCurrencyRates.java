@@ -1,5 +1,7 @@
 package HomeWork6.utils.nbrb;
 
+import HomeWork6.dto.Currency;
+import HomeWork6.dto.CurrencyRates;
 import HomeWork6.utils.SiteDataLoader;
 
 import java.text.DateFormat;
@@ -13,24 +15,9 @@ import java.util.TreeMap;
  * Created by Vitali Tsvirko
  */
 public class NBRBCurrencyRates {
-    public enum Currency{
-        USD("145"),
-        EUR("292"),
-        RUB("298");
-
-        private String id;
-
-        Currency(String id) {
-            this.id = id;
-        }
-
-        public String getId(){
-            return this.id;
-        }
-    }
-
     private SiteDataLoader dataLoader;
     private final DateFormat sourceDataDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
     /**
      * Конструктор
@@ -47,9 +34,12 @@ public class NBRBCurrencyRates {
      * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      * @throws ParseException если произошла ошибка парсинга данных
      */
-    public Map<Date, Double> getCurrencyRate (NBRBCurrencyRates.Currency currencyName) throws ParseException{
+    public void getCurrencyRate (CurrencyRates dataContainer) throws ParseException{
         Date toDayDate = new Date();
-        return loadCurrencyRate(currencyName, toDayDate, toDayDate);
+        dataContainer.setStartDate(toDayDate);
+        dataContainer.setEndDate(toDayDate);
+
+        loadCurrencyRate(dataContainer);
     }
 
     /**
@@ -59,8 +49,10 @@ public class NBRBCurrencyRates {
      * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      * @throws ParseException если произошла ошибка парсинга данных
      */
-    public Map<Date, Double> getCurrencyRatesOnDate (NBRBCurrencyRates.Currency currencyName, Date onDate) throws ParseException{
-        return loadCurrencyRate(currencyName, onDate, onDate);
+    public void getCurrencyRatesOnDate (CurrencyRates dataContainer, Date onDate) throws ParseException{
+        dataContainer.setStartDate(onDate);
+        dataContainer.setEndDate(onDate);
+        loadCurrencyRate(dataContainer);
     }
 
     /**
@@ -71,30 +63,43 @@ public class NBRBCurrencyRates {
      * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      * @throws ParseException если произошла ошибка парсинга данных
      */
-    public Map<Date, Double> getCurrencyRatesOnDateRange (NBRBCurrencyRates.Currency currencyName, Date startData, Date endData) throws ParseException{
-        return loadCurrencyRate(currencyName, startData, endData);
+    public void getCurrencyRatesOnDateRange (CurrencyRates dataContainer, Date startData, Date endData) throws ParseException{
+        dataContainer.setStartDate(startData);
+        dataContainer.setEndDate(endData);
+        loadCurrencyRate(dataContainer);
+    }
+
+
+
+    private String getCurrencyId (Currency currency){
+        switch (currency){
+            case USD:
+                return "145";
+            case EUR:
+                return "292";
+            case RUB:
+                return "298";
+            default:
+                return "";
+        }
     }
 
 
     /**
      * Данный метод возвращает {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты по отношению к белорусскому рублю
-     * @param currencyName валюта для которой необходимо получить курс
-     * @param startData начальная дата
-     * @param endData конечная дата (включительно)
-     * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      * @throws ParseException если произошла ошибка парсинга данных
      */
-    private Map<Date, Double> loadCurrencyRate (NBRBCurrencyRates.Currency currencyName, Date startData, Date endData) throws ParseException {
-        String data = dataLoader.load("https://www.nbrb.by/API/ExRates/Rates/Dynamics/"
-                + currencyName.getId()
+    private void loadCurrencyRate (CurrencyRates dataContainer) throws ParseException {
+        String data = this.dataLoader.load("https://www.nbrb.by/API/ExRates/Rates/Dynamics/"
+                + getCurrencyId(dataContainer.getCurrencyName())
                 + "?"
                 + "startDate="
-                + this.sourceDataDateFormat.format(startData)
+                + this.sourceDataDateFormat.format(dataContainer.getStartDate())
                 + "&"
                 + "endDate="
-                + this.sourceDataDateFormat.format(endData));
+                + this.sourceDataDateFormat.format(dataContainer.getEndDate()));
 
-        return parseData(data);
+        parseData(data, dataContainer);
     }
 
 
@@ -108,9 +113,7 @@ public class NBRBCurrencyRates {
      * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
      * @throws ParseException если произошла ошибка парсинга данных
      */
-    private Map<Date, Double> parseData (String data) throws ParseException{
-        Map<Date, Double> map = new TreeMap<>();
-
+    private void parseData (String data, CurrencyRates dataContainer) throws ParseException{
         String[] lineArray = data.replaceAll("(\\[)|(\\])|(\")", "")
                                  .replaceAll("^(\\{)|(\\})$", "")
                                  .split("\\},\\{");
@@ -128,13 +131,11 @@ public class NBRBCurrencyRates {
                 Date date = this.sourceDataDateFormat.parse(stringDateTime.substring(0, stringDateTime.lastIndexOf("T")));
                 String value = dataFields[2].split(":")[1];
 
-                map.put(date, Double.parseDouble(value));
+                dataContainer.addCurrencyRate(date, Double.parseDouble(value));
             } catch (ParseException e) {
                 throw new ParseException("Ошибка в полученных данных", 0);
             }
         }
-
-        return map;
     }
 
 }

@@ -1,11 +1,11 @@
-package HomeWork6.utils.nbrb.test;
+package HomeWork6.utils.loaders.emulators;
 
-import HomeWork6.utils.SiteDataLoader;
+import HomeWork6.utils.loaders.SiteDataLoader;
 
 /**
  * Created by Vitali Tsvirko
  */
-public class SiteDataLoaderForTest extends SiteDataLoader {
+public class NBRBSiteDataLoaderEmulator extends SiteDataLoader {
 
     @Override
     public String load(String urlToSite){

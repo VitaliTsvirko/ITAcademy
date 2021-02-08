@@ -14,7 +14,9 @@ import java.util.Date;
  */
 public class CurrencyRatesSaveToFile {
     public void writeToFile (CurrencyRates dataContainer, DateFormat dateFormat, File filePath) throws IOException {
-        String fileName = dataContainer.getCurrencyName()
+/*        String fileName = dataContainer.getCurrencyName()
+                            + "_"
+                            + dataContainer.getBank().name()
                             + "_"
                             + dateFormat.format(dataContainer.getStartDate())
                             + "-"
@@ -31,7 +33,7 @@ public class CurrencyRatesSaveToFile {
             }
         } catch (IOException e) {
             throw new IOException("Ошибка записи в файл.");
-        }
+        }*/
     }
 
 }

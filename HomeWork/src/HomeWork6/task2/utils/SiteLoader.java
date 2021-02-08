@@ -1,4 +1,4 @@
-package HomeWork6.utils;
+package HomeWork6.task2.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

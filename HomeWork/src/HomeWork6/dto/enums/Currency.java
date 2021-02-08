@@ -1,4 +1,4 @@
-package HomeWork6.dto;
+package HomeWork6.dto.enums;
 
 public enum Currency {
     USD,

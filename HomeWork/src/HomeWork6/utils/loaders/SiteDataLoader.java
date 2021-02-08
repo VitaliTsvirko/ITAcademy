@@ -1,4 +1,4 @@
-package HomeWork6.utils;
+package HomeWork6.utils.loaders;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,22 +10,6 @@ import java.net.URL;
  * Реализация загрузчика сайтов
  */
 public class SiteDataLoader {
-
-    public enum Currency{
-        USD("145"),
-        EUR("292"),
-        RUB("298");
-
-        private String id;
-
-        Currency(String id) {
-            this.id = id;
-        }
-
-        public String getId(){
-            return this.id;
-        }
-    }
 
     /**
      * Метод для запуска загрузки курса валют

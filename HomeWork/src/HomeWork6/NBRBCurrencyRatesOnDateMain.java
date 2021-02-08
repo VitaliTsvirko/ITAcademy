@@ -1,16 +1,13 @@
 package HomeWork6;
 
-import HomeWork6.dto.Currency;
-import HomeWork6.dto.CurrencyRates;
-import HomeWork6.utils.CurrencyRatesSaveToFile;
-import HomeWork6.utils.nbrb.NBRBCurrencyRates;
-import HomeWork6.utils.nbrb.test.SiteDataLoaderForTest;
+import HomeWork6.dto.*;
+import HomeWork6.dto.enums.Banks;
+import HomeWork6.dto.enums.Currency;
+import HomeWork6.utils.loaders.SiteDataLoader;
+import HomeWork6.utils.handlers.HandlerSelector;
+import HomeWork6.utils.handlers.dto.ICurrencyRatesDataHandler;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -19,137 +16,163 @@ import java.util.*;
  */
 public class NBRBCurrencyRatesOnDateMain {
     public static void main(String[] args) {
-        //NBRBCurrencyRates loader = new NBRBCurrencyRates(new SiteDataLoader());
-        NBRBCurrencyRates loader = new NBRBCurrencyRates(new SiteDataLoaderForTest());
-
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Map<Date, Double> currencyRates = new TreeMap<>();
 
-        List<Date> dateRange = new ArrayList<>(1);
+        DateRange dateRange = dateRangeBuild(args, dateFormat);
 
-        if (args.length == 0){
-            System.err.println("Не задана дата.\nКурсы валют будут выведены на текущую дату");
-            dateRange.add(new Date());
-        } else {
+        SiteDataLoader loader = new SiteDataLoader();
+
+        List<ICurrencyRatesDataHandler> dataHandlers = new ArrayList<>();
+        List<CurrencyRates> currencyRatesContainers = new ArrayList<>();
+
+        initMessage(dateRange);
+        /*
+            Main process
+         */
+
+        List<Banks> selectedBanks = userBanksRequester();
+
+        /*
+            Инициализация обработчиков и контейнеров
+         */
+        for (Banks bank : selectedBanks) {
+            //Инициализация обработчиков для каждого банка
+            dataHandlers.add(HandlerSelector.getHandler(bank));
+
+            //Инициализация контейнеров для хранения курсов валют
+            currencyRatesContainers.add(new CurrencyRates(bank));
+        }
+
+
+        /*
+            Запрос курсов валют
+         */
+        for (int i = 0; i < dataHandlers.size(); i++) {
             try{
-                dateRange = getDateFromString(args[0]);
-            } catch (IllegalArgumentException e){
-                System.err.println(e.getMessage());
-                System.exit(-100);
+                dataHandlers.get(i).requestCurrencyRates(loader, currencyRatesContainers.get(i), dateRange);
+            } catch (NumberFormatException | NullPointerException e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            } catch (RuntimeException e){
+                System.out.println(e.getMessage());
             }
+
+
+
         }
 
+        /*
+            Вывод результатов в консоль
+         */
+        for (CurrencyRates currencyRatesContainer : currencyRatesContainers) {
+            System.out.println("Банк " + currencyRatesContainer.getBank().getName() + ":");
+            currencyRatesContainer.printCurrencyRates(dateFormat);
+        }
 
-        System.out.print("Введите пусть для сохранения данных курсов валют:");
+    }
+
+
+
+
+    /**
+     * Данный метод выполняет запрос у пользователя списка банков для которых необходимо вывести курсы
+     * @return список банков для которых необходимо вывести курсы
+     */
+    public static List<Banks> userBanksRequester(){
+
+        System.out.println("Выберите банк:");
+
+        int number = 0;
+        for (Banks bank : Banks.values()) {
+            System.out.println(++number + ". "  + bank.getName());
+        }
+        System.out.println((Banks.values().length + 1) + ". " + "Все банки");
+
+
         Scanner scanner = new Scanner(System.in);
+        int selectionResult = -1;
 
-        String pathFromUser = scanner.next();
-        File file = new File(pathFromUser);
-        if (!file.exists()){
-            System.err.println("Указан не верный путь. Файл будет создан: " + System.getProperty("user.dir"));
-            file = new File(System.getProperty("user.dir"));
+        do{
+            System.out.print("Введите номер банка (0 - выход):");
+            try {
+                selectionResult = scanner.nextInt();
+                if (selectionResult == 0){
+                    System.exit(0);
+                }
+            } catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+            }
+        } while ((selectionResult > Banks.values().length + 1) || (selectionResult < 0));
+
+
+        List<Banks> selectedBanks = new ArrayList<>();
+
+        if (selectionResult == Banks.values().length + 1) {
+            selectedBanks.addAll(Arrays.asList(Banks.values()));
+        } else {
+            selectedBanks.add(Banks.values()[selectionResult - 1]);
         }
 
-        CurrencyRates usdCurrencyRates = new CurrencyRates(Currency.USD);
-        CurrencyRates eurCurrencyRates = new CurrencyRates(Currency.EUR);
-        CurrencyRates rubCurrencyRates = new CurrencyRates(Currency.RUB);
-
-
-        getCurrencyRates(loader, usdCurrencyRates, dateRange);
-        getCurrencyRates(loader, eurCurrencyRates, dateRange);
-        getCurrencyRates(loader, rubCurrencyRates, dateRange);
-
-/*        printCurrencyRates(usdCurrencyRates, dateFormat);
-        printCurrencyRates(eurCurrencyRates, dateFormat);
-        printCurrencyRates(rubCurrencyRates, dateFormat);*/
-
-
-
-       CurrencyRatesSaveToFile fileSaver =  new CurrencyRatesSaveToFile();
-       try {
-           fileSaver.writeToFile(usdCurrencyRates, dateFormat, file);
-           fileSaver.writeToFile(eurCurrencyRates, dateFormat, file);
-           fileSaver.writeToFile(rubCurrencyRates, dateFormat, file);
-       } catch (IOException e){
-           e.getMessage();
-       }
-
-
-
-
-
+        return selectedBanks;
     }
 
 
     /**
-     * Данный метод выводит на экран курсы валют за период
-     * @param dateFormat формат даты для вывода
+     * Данный метод выводит в консоль сообщения соедржащее:
+     * <ul>
+     *     <li>Перечь банков из которых можно запрашивать курсы валют</li>
+     *     <li>Перечь валют для которых можно запрашивать курсы</li>
+     *     <li>Дата (или диапазон) для которых будет выполнен запрос курсов валют</li>
+     * </ul>
+     *
+     * @param dateRange объект содержащий даты для которых будет выполнен запрос
      */
-    public static void printCurrencyRates(CurrencyRates dataContainer, DateFormat dateFormat){
-        System.out.println("Курс " + dataContainer.getCurrencyName() + ":");
-        for (Date date : dataContainer.getData().keySet()) {
-            System.out.println(dateFormat.format(date) + " : " + dataContainer.getData().get(date));
+    public static void initMessage(DateRange dateRange){
+        String[] banksArray = Arrays.stream(Banks.values())
+                                    .map(Banks::getName)
+                                    .toArray(String[]::new);
+
+        String[] currencyArray = Arrays.stream(Currency.values())
+                                        .map(currency -> currency.name())
+                                        .toArray(String[]::new);
+
+        System.out.println("Данное приложение запрашивает курсы валют");
+        System.out.println("Поддерживается работа со следующими банками: " + String.join(", ", banksArray));
+        System.out.println("Поддерживается работа со следующими валютами: " + String.join(", ", currencyArray));
+
+        System.out.println("");
+
+        if (dateRange.isOneDay()){
+            System.out.println("Курсы валют будут выведены на дату: " + dateRange.getStartDateString());
+        } else {
+            System.out.println("Курсы валют будут выведены на диапазон дат: " + dateRange.getStartDateString() + " - " + dateRange.getEndDateString());
         }
+
+        System.out.println("");
     }
 
+
     /**
-     * Данный метод возвращает {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты по отношению к белорусскому рублю
-     * @param loader объект который осуществляет загрузку данных с сайта
-     * @param dateRange {@code List<Date>} содержащий дату или диапазон дат (начальная, конечная).
-     * @return {@code Map} содержащую в качестве ключа дату, в качестве значения курс валюты
+     * Данный метод выполняет парсинг дат
+     * @param args строка содержащая дату или перечень дат
+     * @param dateFormat формат даты
+     * @return объект {@code DateRange} содержащий переданный в строке диапазон дат
+     * @see DateRange
      */
-    public static void getCurrencyRates (NBRBCurrencyRates loader, CurrencyRates dataContainer, List<Date> dateRange){
+    public static DateRange dateRangeBuild(String[] args, DateFormat dateFormat){
+        DateRange dateRange = null;
         try {
-            if ((dateRange.size() == 1)) {
-                loader.getCurrencyRatesOnDate(dataContainer, dateRange.get(0));
+            if (args.length == 0) {
+                dateRange = new DateRange(dateFormat);
             } else {
-                loader.getCurrencyRatesOnDateRange(dataContainer, dateRange.get(0), dateRange.get(1));
+                dateRange = new DateRange(args[0], dateFormat);
             }
-
-        } catch (ParseException |  RuntimeException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
-            e.printStackTrace();
-            System.exit(-200);
+            System.exit(-123);
         }
+
+        return dateRange;
     }
-
-
-    /**
-     * Данный метод осуществляет преобразование строки в даты
-     * Поддерживаются следующие форматы дат:
-     * 01.02.2021
-     * 01.01.2021-01.02.2021
-     * 01.01.2021,01.02.2021
-     * @param stringDates текстовая строка с датами
-     * @return {@code List<Date>} содержащий дату или диапазон дат (начальная, конечная).
-     * @throws IllegalArgumentException если был передана неверная дата
-     */
-    public static List<Date> getDateFromString (String stringDates) throws IllegalArgumentException{
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-        if (stringDates.matches("\\d{1,2}.\\d{1,2}.\\d{4}")){
-            try {
-                List<Date> dateRange = new ArrayList<>(1);
-                dateRange.add(dateFormat.parse(stringDates));
-                return dateRange;
-            } catch (ParseException e){
-                throw new IllegalArgumentException("Передана неверная дата");
-            }
-        }
-
-        if (stringDates.matches("(\\d{1,2}.\\d{1,2}.\\d{4})(,|-)(\\d{1,2}.\\d{1,2}.\\d{4})")) {
-            try {
-                List<Date> dateRange = new ArrayList<>(2);
-                dateRange.add(dateFormat.parse(stringDates.split("(,|-)")[0]));
-                dateRange.add(dateFormat.parse(stringDates.split("(,|-)")[1]));
-                return dateRange;
-            } catch (ParseException e){
-                throw new IllegalArgumentException("Передана неверная дата");
-            }
-        }
-
-        throw new IllegalArgumentException("Передана неверная дата");
-    }
-
 
 }

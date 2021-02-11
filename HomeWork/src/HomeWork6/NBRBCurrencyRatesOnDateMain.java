@@ -3,11 +3,15 @@ package HomeWork6;
 import HomeWork6.dto.*;
 import HomeWork6.dto.enums.Banks;
 import HomeWork6.dto.enums.Currency;
+import HomeWork6.saver.CurrencyRatesFileSaver;
+import HomeWork6.saver.exceptions.IllegalBankInFileException;
 import HomeWork6.utils.loaders.SiteDataLoader;
 import HomeWork6.utils.handlers.HandlerSelector;
-import HomeWork6.utils.handlers.dto.ICurrencyRatesDataHandler;
+import HomeWork6.utils.handlers.api.ICurrencyRatesDataHandler;
 
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -26,6 +30,7 @@ public class NBRBCurrencyRatesOnDateMain {
         List<CurrencyRates> currencyRatesContainers = new ArrayList<>();
 
         initMessage(dateRange);
+
         /*
             Main process
          */
@@ -56,19 +61,38 @@ public class NBRBCurrencyRatesOnDateMain {
             } catch (RuntimeException e){
                 System.out.println(e.getMessage());
             }
-
-
-
         }
+
+
+        CurrencyRatesFileSaver fileSaver = new CurrencyRatesFileSaver(2);
+
+        int exitResult = 0;
+
+        for (CurrencyRates currencyRatesContainer : currencyRatesContainers) {
+            try {
+                fileSaver.saveDataToFile(currencyRatesContainer);
+            } catch (IllegalBankInFileException e){
+                System.out.println(e.getMessage());
+                exitResult = -666;
+            } catch (ParseException | IOException e){
+                System.out.println(e.getMessage());
+                exitResult = -667;
+            }
+        }
+
+        if (exitResult == 0){
+            System.out.println("Данные успешно сохранены");
+        }
+        System.exit(exitResult);
 
         /*
             Вывод результатов в консоль
-         */
+
         for (CurrencyRates currencyRatesContainer : currencyRatesContainers) {
             System.out.println("Банк " + currencyRatesContainer.getBank().getName() + ":");
             currencyRatesContainer.printCurrencyRates(dateFormat);
         }
-
+        */
     }
 
 

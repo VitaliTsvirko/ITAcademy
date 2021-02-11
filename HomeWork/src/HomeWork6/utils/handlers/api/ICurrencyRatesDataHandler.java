@@ -1,4 +1,4 @@
-package HomeWork6.utils.handlers.dto;
+package HomeWork6.utils.handlers.api;
 
 import HomeWork6.dto.CurrencyRates;
 import HomeWork6.dto.DateRange;

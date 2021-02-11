@@ -57,6 +57,16 @@ public class CurrencyRates {
     }
 
 
+    public void addCurrencyData(CurrencyRates currencyRateContainer) {
+        Map<Currency, Map<Date, Double>> dataToAdd = currencyRateContainer.getAllCurrencyRate();
+
+        for (Currency currency : dataToAdd.keySet()) {
+            Map<Date, Double> currencyMap = dataToAdd.get(currency);
+            this.addCurrencyData(currency, currencyMap);
+        }
+    }
+
+
     /**
      * Данный метод возвращает данные о курсах валют для конкретной валюты
      * @param currencyName валюта {@code enum Currency}

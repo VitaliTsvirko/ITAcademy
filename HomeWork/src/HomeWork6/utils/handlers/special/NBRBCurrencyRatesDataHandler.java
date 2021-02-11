@@ -4,7 +4,7 @@ import HomeWork6.dto.CurrencyRates;
 import HomeWork6.dto.DateRange;
 import HomeWork6.dto.enums.Currency;
 import HomeWork6.utils.loaders.SiteDataLoader;
-import HomeWork6.utils.handlers.dto.ICurrencyRatesDataHandler;
+import HomeWork6.utils.handlers.api.ICurrencyRatesDataHandler;
 
 import java.text.DateFormat;
 import java.text.ParseException;

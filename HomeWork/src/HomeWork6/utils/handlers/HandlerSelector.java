@@ -1,7 +1,7 @@
 package HomeWork6.utils.handlers;
 
 import HomeWork6.dto.enums.Banks;
-import HomeWork6.utils.handlers.dto.ICurrencyRatesDataHandler;
+import HomeWork6.utils.handlers.api.ICurrencyRatesDataHandler;
 import HomeWork6.utils.handlers.special.AlphaBankCurrencyRatesDataHandler;
 import HomeWork6.utils.handlers.special.BelApbCurrencyRatesDataHandler;
 import HomeWork6.utils.handlers.special.BelarusbankCurrencyRatesDataHandler;
